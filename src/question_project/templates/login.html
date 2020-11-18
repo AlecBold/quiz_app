@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    .errors {
+        color: red;
+    }
+</style>
+<div>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label>
+            Username
+            <input type="text" name="username"/>
+        </label>
+        <label>
+            Password
+            <input type="password" name="password"/>
+        </label>
+        <div class="errors">
+            {{ errors }}
+        </div>
+        <label>
+            <input type="submit" value="Submit">
+        </label>
+
+    </form>
+</div>
+{% endblock %}

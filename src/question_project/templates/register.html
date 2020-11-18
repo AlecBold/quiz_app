@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    .errors {
+        color: red;
+    }
+</style>
+<div>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <label>
+            Username
+            <input type="text" name="username"/>
+        </label>
+        <label>
+            Password1
+            <input type="password" name="password1"/>
+        </label>
+        <label>
+            Password2
+            <input type="password" name="password2">
+        </label>
+        <div class="errors">
+            {{ errors }}
+        </div>
+        <label>
+            <input type="submit" value="Submit">
+        </label>
+
+    </form>
+</div>
+{% endblock %}

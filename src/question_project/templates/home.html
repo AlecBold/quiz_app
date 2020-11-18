@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+    .list-quiz {
+        display: flex;
+        flex-direction: column;
+    }
+    .quiz {
+        padding: 10px 0;
+        border-bottom: 2px solid silver;
+    }
+</style>
+<div>
+    {% if user.is_authenticated %}
+        <p>Hi, {{ user.username }}.</p>
+        <div class="list-quiz">
+            {% for quiz in unfinished_quizes %}
+                <div class="quiz unfinished">
+                    <p class="quiz-name">{{ quiz.name }}</p>
+                    <p class="quiz-desc">{{ quiz.description }}</p>
+                    <a href="/quiz/{{ quiz.id }}">start</a>
+                </div>
+            {% endfor %}
+            {% for quiz in finished_quizes %}
+                <div class="quiz finished">
+                    <p class="quiz-name">{{ quiz.name }}</p>
+                    <p class="quiz_name">{{ quiz.description }}</p>
+                    <p>This quiz you finished.</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You, are not logged in.</p>
+    {% endif%}
+</div>
+{% endblock %}

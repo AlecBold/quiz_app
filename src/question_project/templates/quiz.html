@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .questions {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div>
+        <a href="{% url 'home' %}">< exit quiz</a>
+    </div>
+    <form action="/quiz/{{ quiz_id }}" method="post" id="quiz-form">
+        {% csrf_token %}
+        <div class="questions">
+            {{ form }}
+        </div>
+        <input id="time" name="time" type="hidden">
+        <div class="control">
+            <input type="button" value="Done" id="quiz-submit">
+        </div>
+    </form>
+</main>
+<script>
+    const startTime = Date.now();
+    const formElement = document.querySelector("#quiz-form");
+    const buttonSubmit = document.querySelector("#quiz-submit");
+
+    buttonSubmit.addEventListener('click', stopTimeAddInputElement);
+    formElement.addEventListener('keypress', function(keyEl) {
+        if (keyEl.key === 'Enter') {
+            stopTimeAddInputElement();
+        }
+    });
+
+    function stopTimeAddInputElement() {
+        document.querySelector("#time").setAttribute('value', Date.now() - startTime);
+        formElement.submit();
+    }
+</script>
+</body>
+</html>
